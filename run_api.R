@@ -1,6 +1,6 @@
 # run_api.R
 
-# Check required packages
+# Check and install required packages
 source("setup.R")
 
 library(plumber)

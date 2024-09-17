@@ -11,21 +11,25 @@ required_packages <- c(
   "plumber", "jsonlite", "future", "promises", "ggplot2", "logger", "DBI", "RPostgres"
 )
 
-# Function to check if package is available
-check_package <- function(package) {
+# Function to check and install package if not available
+check_and_install_package <- function(package) {
   if (!requireNamespace(package, quietly = TRUE)) {
-    cat(paste("Package", package, "is not available.\n"))
-    return(FALSE)
+    cat(paste("Attempting to install package", package, "\n"))
+    install.packages(package, repos = "https://cloud.r-project.org")
+    if (!requireNamespace(package, quietly = TRUE)) {
+      cat(paste("Failed to install package", package, "\n"))
+      return(FALSE)
+    }
   }
   return(TRUE)
 }
 
-# Check packages
-all_available <- all(sapply(required_packages, check_package))
+# Check and install packages
+all_available <- all(sapply(required_packages, check_and_install_package))
 
 if (all_available) {
   cat("All required packages are available.\n")
 } else {
-  cat("Some required packages are missing. Please check the Nix configuration.\n")
+  cat("Some required packages are missing and could not be installed. Please check your R environment.\n")
   quit(status = 1)
 }
