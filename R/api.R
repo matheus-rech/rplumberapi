@@ -200,3 +200,13 @@ function(pr) {
     log_info("Database connection closed")
   })
 }
+
+#* @get /hello
+function() {
+  list(message = "Hello, world!")
+}
+
+#* @post /echo
+function(msg = "") {
+  list(message = paste0("The message is: '", msg, "'"))
+}
