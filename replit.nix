@@ -1,18 +1,16 @@
 {pkgs}: {
   deps = [
     pkgs.R
-    (pkgs.rWrapper.override {
-      packages = with pkgs.rPackages; [
-        plumber
-        jsonlite
-        future
-        promises
-        ggplot2
-        logger
-        DBI
-        RPostgres
-      ];
-    })
+    pkgs.rPackages.plumber
+    pkgs.rPackages.jsonlite
+    pkgs.rPackages.future
+    pkgs.rPackages.promises
+    pkgs.rPackages.ggplot2
+    pkgs.rPackages.logger
+    pkgs.rPackages.DBI
+    pkgs.rPackages.RPostgres
+    pkgs.libcurl
+    pkgs.openssl
     pkgs.postgresql
   ];
 }
